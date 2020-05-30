@@ -6,29 +6,5 @@
   display: inline-flex;
   flex-direction: column;
   margin: 1%;
-  // &:nth-child(odd) {
-  //   margin-right: 1%;
-  // }
-  // &:nth-child(even) {
-  //   margin-left: 1%;
-  // }
-  .title {
-    margin: 0px;
-    font-size: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .price {
-    font-size: 12px;
-  }
-  .description {
-    margin: 10px 0;
-  }
-  .style {
-    margin: 10px 0;
-  }
-  .delivery {
-    margin-left: auto;
-  }
+  border-radius: 5px ;
 }
