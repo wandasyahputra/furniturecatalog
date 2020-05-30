@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionsCreator } from '../redux/action/index'
 import PropTypes from 'prop-types'
-import CardProduct from '../components/card'
+import CardProduct from '../components/cardProduct'
 
 
 const ProductSearch = props => {
@@ -14,16 +14,21 @@ const ProductSearch = props => {
   }, [])
   return (
     <div>
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
-      <CardProduct />
+      {props.loaded && props.product !== null ? props.products.map((item,key) => (
+        <CardProduct
+          name={item.name}
+          desc={item.description}
+          styles={item.furniture_style}
+          delivery={item.delivery_time}
+          price={item.price}
+        />
+      )) : null}
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  productReducer: state.ProductReducer.data.product,
+  products: state.ProductReducer.data.products,
   loading: state.ProductReducer.loading,
   loaded: state.ProductReducer.loaded,
   error: state.ProductReducer.error
