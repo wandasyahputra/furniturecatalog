@@ -19,15 +19,6 @@ Then, run dev server:
 npm run dev
 ```
 
-Please copy file 
-```bash
-.env.sample
-```
-and paste on same level as
-```bash
-.env
-```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Authors
