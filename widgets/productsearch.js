@@ -5,42 +5,142 @@ import { ActionsCreator } from '../redux/action/index'
 import PropTypes from 'prop-types'
 import CardProduct from '../components/cardProduct'
 import Select from 'react-select'
+import TextField from '../atomic/textField'
+import { setProduct } from '../redux/collection/Product/actions'
 
+let filterName = ''
+let filterStyle = []
+let filterDelivery = []
 const ProductSearch = (props) => {
   const [selectStyle, setSelectStyle] = useState([])
+  const [products, setProducts] = useState([])
   const selectDelivery = [
-    {label:'1 Week', value: '1 Week'},
-    {label:'2 Week', value: '2 Week'},
-    {label:'1 Month', value: '1 Month'},
-    {label:'More', value: 'More'},
+    {label:'1 Week', value: 1},
+    {label:'2 Week', value: 2},
+    {label:'1 Month', value: 3},
+    {label:'More', value: 4},
   ]
   useEffect(() => {
     if (!props.loading && !props.loaded && !props.error) {
       props.callProduct()
     }
   }, [])
+
   useEffect(() => {
     const option = []
     props.furniture_styles !== null && props.furniture_styles.map(item => {
       option.push({value:item, label:item})
     })
+    setProducts(props.products)
     setSelectStyle(option)
   }, [props.furniture_styles])
+  
+  const filterProduct = () => {
+    const filteredProduct = []
+    props.products.map((item) => {
+      const match = 0
+      if(filterName !== '') {
+        if (filterProductByName(item) === true) {
+          console.log(item)
+          filteredProduct.push(item)
+        }
+      } else if (filterStyle.length !== 0) {
+        if (filterProductByStyle(item)=== true) {
+          console.log(item)
+          filteredProduct.push(item) 
+        }
+      } else if (filterDelivery.length !== 0) {
+        if (filterProductByDelivery(item) === true) {
+          filteredProduct.push(item) 
+        }
+      } else {
+        filteredProduct.push(item)
+      }
+    })
+    console.log(filterName,filteredProduct)
+    setProducts(filteredProduct)
+  } 
+
+  const filterProductByName = (item) => {
+    if (item.name.toLowerCase().includes(filterName.toLowerCase())) {
+      if (filterStyle.length !== 0) {
+          return filterProductByStyle(item)
+      } else if (filterDelivery.length !== 0) {
+          return filterProductByDelivery(item)
+      }
+      return true
+    } 
+  }
+
+  const filterProductByStyle = (item) => {
+    for (let i = 0; i < item.furniture_style.length; i++ ) {
+      for (let x = 0; x < filterStyle.length; x++) {
+        if (item.furniture_style[i] === filterStyle[x].value) {
+          if (filterDelivery.length !== 0) {
+            return filterProductByDelivery(item)
+          }
+          return true
+        }
+      }
+    }
+  }
+
+  const filterProductByDelivery = (item) => {
+    for (let x = 0; x < filterDelivery.length; x++) {
+      if(filterDelivery[x].value === 1 && item.delivery_time <= 7) {
+        return true
+      } else if (filterDelivery[x].value === 2 && item.delivery_time > 7 && item.delivery_time <= 14) {
+        return true
+      } else if (filterDelivery[x].value === 3 && item.delivery_time > 14 && item.delivery_time <= 31) {
+        return true
+      } else if (filterDelivery[x].value === 4 && item.delivery_time > 31) {
+        return true
+      }
+    }
+  }
+
+  const searchNameOnChange = (value) => {
+    filterName = value
+    filterProduct()
+  }
+  const searchStyleOnChange = (value) => {
+    console.log(value)
+    if (value === null) {
+      value = []
+    }
+    filterStyle = value
+    filterProduct()
+  }
+
+  const searchDeliveryOnChange = (value) => {
+    console.log(value)
+    if (value === null) {
+      value = []
+    }
+    filterDelivery = value
+    filterProduct()
+  }
+
   return (
-    <div className="container">
+    <div className="container home">
+      <TextField label="Search Furniture"
+        onChange={searchNameOnChange}
+      />
       <Select
         isLoading={props.loading}
         isDisabled={props.loading}
         isMulti
+        onChange={searchStyleOnChange}
         options={selectStyle}
       />
       <Select
         isLoading={props.loading}
         isDisabled={props.loading}
         isMulti
+        onChange={searchDeliveryOnChange}
         options={selectDelivery}
       />
-      {props.loaded && props.product !== null ? props.products.map((item,key) => (
+      {props.loaded && products !== null ? products.map((item,key) => (
         <CardProduct
           key={key}
           name={item.name}

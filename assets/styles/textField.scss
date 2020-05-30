@@ -1,0 +1,82 @@
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+  .input-group {
+    position: relative;
+    border: 1px solid $lightGrey;
+    background-color: $white;
+    border-radius: 5px !important;
+    padding: 2px;
+    background-color: $white;
+  }
+  .form-control {
+    input {
+      border: 0px;
+      padding: 10px 16px;
+      outline: none;
+      background-color: $white;
+    }
+    padding: 0px;
+    border: 0px;
+    height: auto;
+    border-radius: 0 !important;
+    background-color: $white;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  .form-select-label,
+  .form-sublabel,
+  .form-label {
+    position: absolute;
+    display: inline-block;
+    background-color: transparent;
+    color: $brownGrey;
+    padding: 3px;
+    margin: 0;
+    transition: all .3s ease-in-out;
+    top: 10px;
+    left: 16px;
+    z-index: 0;
+    font-size: 14px;
+    opacity: 1;
+    pointer-events: none;
+  }
+  .form-control > input:focus + .form-label,
+  .has-value + .form-label {
+    background-color: $white;
+    top: -15px;
+  }
+  .input-group-prepend {
+    background-color: $white;
+    padding: 10px 16px;
+    & + .form-control input {
+      padding-left: 0;
+    }
+  }
+  .input-group-append {
+    background-color: $white;
+    padding: 10px 16px;
+    & + .form-control input {
+      padding-right: 0;
+    }
+    a {
+      color: $brownGrey;
+    }
+  }
+  .input-group-text {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .input-group-search {
+    background-color: #f8f8f8 !important;
+    &:focus-within {
+      border-color: $midBlue;
+      outline: 0;
+    }
+    .input-group-prepend, .form-control, .input-group-append {
+      background-color: transparent;
+    }
+  }
+}
