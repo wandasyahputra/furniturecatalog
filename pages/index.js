@@ -5,7 +5,7 @@ import ProductSearch from '../widgets/productsearch'
 export default function Home() {
   return (
     <div>
-      <ProductSearch/>
+      <ProductSearch />
     </div>
   )
 }

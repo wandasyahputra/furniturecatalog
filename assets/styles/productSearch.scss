@@ -1,0 +1,15 @@
+.productSearch {
+  &-filter {
+    background-color: $midBlue ;
+    padding: 20px;
+    &-title {
+      color: $white;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0 0 20px 0;
+    }
+  }
+  .product {
+    margin-top: 20px;
+  }
+}

@@ -9,6 +9,7 @@ const propTypes = {
   onChange: PropTypes.func,
   className: PropTypes.string,
   innerLabel: PropTypes.string,
+  disabled: PropTypes.bool
 
 }
 
@@ -16,7 +17,8 @@ const defaultProps = {
   type: 'text',
   className: '',
   innerLabel: '',
-  value: ''
+  value: '',
+  disabled: false
 }
 
 const TextField = (props) => {
@@ -52,6 +54,7 @@ const TextField = (props) => {
             className={'w-100' + (value || props.innerLabel !== '' ? ' has-value' : '')}
             onChange={(e) => handleChange(e)}
             value={value}
+            disabled={props.disabled}
           />
           <label className="form-label" htmlFor={props.id}>
             {props.label}

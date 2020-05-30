@@ -5,7 +5,8 @@ import axios from 'axios'
 import { home } from '../../../endpoint/furniturecatalog'
 import {
   successState,
-  errorState
+  errorState,
+  loadingState
 } from '../../../utils/initState'
 
 export const setProduct = data => ({
@@ -16,9 +17,9 @@ export const setProduct = data => ({
 export const callProduct = () => {
   return dispatch => {
     return new Promise((resolve, reject) => {
+      dispatch(setProduct(loadingState))
       axios.get(home)
         .then(({ data }) => {
-          console.log(data)
           const dataContainer = {
             products: null,
             furniture_styles: null

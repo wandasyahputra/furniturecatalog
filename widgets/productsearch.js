@@ -38,15 +38,12 @@ const ProductSearch = (props) => {
   const filterProduct = () => {
     const filteredProduct = []
     props.products.map((item) => {
-      const match = 0
       if(filterName !== '') {
         if (filterProductByName(item) === true) {
-          console.log(item)
           filteredProduct.push(item)
         }
       } else if (filterStyle.length !== 0) {
         if (filterProductByStyle(item)=== true) {
-          console.log(item)
           filteredProduct.push(item) 
         }
       } else if (filterDelivery.length !== 0) {
@@ -57,7 +54,6 @@ const ProductSearch = (props) => {
         filteredProduct.push(item)
       }
     })
-    console.log(filterName,filteredProduct)
     setProducts(filteredProduct)
   } 
 
@@ -111,7 +107,6 @@ const ProductSearch = (props) => {
     filterStyle = value
     filterProduct()
   }
-
   const searchDeliveryOnChange = (value) => {
     console.log(value)
     if (value === null) {
@@ -122,34 +117,50 @@ const ProductSearch = (props) => {
   }
 
   return (
-    <div className="container home">
-      <TextField label="Search Furniture"
-        onChange={searchNameOnChange}
-      />
-      <Select
-        isLoading={props.loading}
-        isDisabled={props.loading}
-        isMulti
-        onChange={searchStyleOnChange}
-        options={selectStyle}
-      />
-      <Select
-        isLoading={props.loading}
-        isDisabled={props.loading}
-        isMulti
-        onChange={searchDeliveryOnChange}
-        options={selectDelivery}
-      />
-      {props.loaded && products !== null ? products.map((item,key) => (
-        <CardProduct
-          key={key}
-          name={item.name}
-          desc={item.description}
-          styles={item.furniture_style}
-          delivery={item.delivery_time}
-          price={item.price}
-        />
-      )) : null}
+    <div className="productSearch">
+      <div className="productSearch-filter">
+        <div className="container">
+          <p className="productSearch-filter-title">Furniture Catalog </p>
+          <TextField label="Search Furniture"
+            onChange={searchNameOnChange}
+            disabled={props.loading}
+          />
+          <Select
+            isLoading={props.loading}
+            isDisabled={props.loading}
+            className="selectOption"
+            classNamePrefix="selectOption"
+            placeholder="Filter by style"
+            isMulti
+            onChange={searchStyleOnChange}
+            options={selectStyle}
+          />
+          <Select
+            isLoading={props.loading}
+            isDisabled={props.loading}
+            className="selectOption"
+            classNamePrefix="selectOption"
+            placeholder="Filter by delivery"
+            isMulti
+            onChange={searchDeliveryOnChange}
+            options={selectDelivery}
+          />
+
+        </div>
+      </div>
+      <div className="container product">
+        <p>{`Displaying ${products.length > 0 ? products.length : 'no'} items`}</p>
+        {props.loaded && products !== null ? products.map((item,key) => (
+          <CardProduct
+            key={key}
+            name={item.name}
+            desc={item.description}
+            styles={item.furniture_style}
+            delivery={item.delivery_time}
+            price={item.price}
+          />
+        )) : null}
+      </div>
     </div>
   )
 }
