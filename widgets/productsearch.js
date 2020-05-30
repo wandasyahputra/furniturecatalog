@@ -149,7 +149,12 @@ const ProductSearch = (props) => {
         </div>
       </div>
       <div className="container product">
-        <p>{`Displaying ${products.length > 0 ? products.length : 'no'} items`}</p>
+        {props.loading ? (
+          <p>Loading items</p>
+        ): null}
+        {props.loaded ? (
+          <p>{`Displaying ${products !== null && products.length > 0 ? products.length : 'no'} items`}</p>
+        ) : null}
         {props.loaded && products !== null ? products.map((item,key) => (
           <CardProduct
             key={key}
