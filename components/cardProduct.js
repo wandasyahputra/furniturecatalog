@@ -15,7 +15,7 @@ const CardProduct = props => {
       </div>
       <p className="description">{props.desc.length > 140 ? props.desc.slice(0,140) + '...' : props.desc}</p>
       <p className="style">{arrayToString(props.styles)}</p>
-      <button className="delivery">{props.delivery} Days</button>
+      <button className="btn btn-primary delivery">{props.delivery} Days</button>
     </Card>
   )
 }

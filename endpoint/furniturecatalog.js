@@ -1,1 +1,1 @@
-export const home = 'http://www.mocky.io/v2/5c9105cb330000112b649af8'
+export const home = 'https://www.mocky.io/v2/5c9105cb330000112b649af8'

@@ -19,3 +19,9 @@
     margin-left: auto;
   }
 }
+
+@media(max-width: 576px) {
+  .cardProduct {
+    width: 98% ;
+  }
+}
